@@ -1,0 +1,337 @@
+---
+title: ""
+
+output: 
+  revealjs::revealjs_presentation:
+    incremental: false
+    transition: 'slide'
+    background_transition: 'slide'
+    slide_level: 1
+    css: custom.css
+    reveal_options:
+      controls: false
+      slideNumber: 'c/t'
+      progress: false
+    self_contained: false
+    reveal_plugins: ["notes"]
+    showNotes: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# SQL SERVER<br>MACHINE LEARNING<br>SERVICES {.title_slide .center}
+Tyler Bradley
+
+
+# Agenda {.normal_slide}
+<div style="margin-top: 7%; margin-bottom: 15%;">
+- Background
+</div>
+<div style="margin-bottom: 15%;">
+- Demos
+</div>
+<div>
+- Tips and Tricks
+</div>
+
+<aside class="notes">
+Demo is for showing ‘putting things into production’
+</aside>
+
+# Background {.section_slide .center}
+
+# What is this? {.normal_slide}
+<div class="fragment" style="margin-top: 7%; margin-bottom: 15%;">
+- SQL Server feature to bring analytics into the database
+</div>
+<div class="fragment" style="margin-bottom: 15%;">
+- R (2016) and Python (2017)
+</div>
+<div class="fragment">
+- Not a standalone server (there is another option for that)
+</div>
+
+<aside class="notes">
+R and Python are analytics languages
+</aside>
+
+# Use cases {.normal_slide}
+<div class="fragment" style="margin-top: 7%; margin-bottom: 10%;">
+- Forecasting next month’s revenue
+</div>
+<div class="fragment" style="margin-bottom: 10%;">
+- Customer churn
+</div>
+<div class="fragment" style="margin-bottom: 10%;">
+- Finding potential fraud
+</div>
+<div class="fragment">
+- Basically, anything that is a best guess or probability
+</div>
+
+# Why would you want this? {.normal_slide}
+<div class="fragment" style="margin-top: 15%;">
+- Speed up predictive model processing
+  <div class="fragment sub_bullet">
+     - The analysis has been brought to the data instead of bringing the data to the analysis
+  </div>   
+  <div class="fragment sub_bullet">
+     - Utilizes SQL for data prep and R/Python for analysis
+  </div>   
+  <div class="fragment sub_bullet">
+     - Outputs directly into SQL Server
+  </div>   
+</div>
+
+# Why would you want this? {.normal_slide}
+<div class="fragment" style="margin-top: 15%;">
+- Clean up analytics projects in production
+  <div class="fragment sub_bullet">
+     - Use stored procedures, jobs, and other SQL objects
+  </div>   
+  <div class="fragment sub_bullet">
+     - Less data pipeline work
+  </div>   
+  <div class="fragment sub_bullet">
+     - Variety of setups but can be standardized across a team/organization
+  </div>   
+</div>
+
+# Why would you want this? {.normal_slide}
+<div class="fragment" style="margin-top: 15%;">
+- Ease collaboration between data scientists and DBAs
+  <div class="fragment sub_bullet">
+     - Utilized SQL permissions
+  </div>   
+  <div class="fragment sub_bullet">
+     - Microsoft approved security
+  </div>   
+  <div class="fragment sub_bullet">
+     - Options for resource controls
+  </div>   
+</div>
+
+# Why would you NOT want this? {.normal_slide}
+<div class="fragment" style="margin-top: 7%; margin-bottom: 15%;">
+- ‘Real-time’ analysis is too slow
+</div>
+<div class="fragment" style="margin-bottom: 15%;">
+- Big data operations are too small
+</div>
+<div class="fragment">
+- Power BI (and other software) interfaces
+</div>
+
+# Planning {.normal_slide}
+<div class="fragment" style="margin-top: 7%; margin-bottom: 15%;">
+- Roles - DBA/Data Engineer to Data Scientist/Analyst
+</div>
+<div class="fragment" style="margin-bottom: 15%;">
+- Use cases
+</div>
+<div class="fragment">
+- Number of People
+</div>
+
+# Demos {.section_slide .center}
+
+# Install {.normal_slide}
+::: {.container}
+:::: {.col}
+<img class="fragment" src="images/install1.png" width=100%>
+::::
+:::: {.col}
+<img class="fragment" src="images/install2.png" width=100%>
+::::
+:::
+
+# Install {.normal_slide}
+::: {.container}
+:::: {.col}
+<div style="position: relative" >
+   <img class="fragment img-inline" src="images/install3.png">
+   <img class="fragment img-inline" src="images/arrow.png" 
+      style="position: absolute; top: 40%; left: 20%;" 
+      width=10% height=10%>
+</div>
+::::
+:::: {.col}
+<div style="position: relative" >
+   <img class="fragment img-inline" src="images/install4.png">
+   <img class="fragment img-inline" src="images/arrow.png" 
+      style="position: absolute; top: 40%; left: 17%;" 
+      width=10% height=10%>
+</div>
+::::
+:::
+
+# Install {.normal_slide}
+::: {.container}
+:::: {.col}
+<div style="margin-top: 25%;">
+A few more options and restarts later... 
+</div>
+::::
+:::: {.col}
+<img class="fragment" style="margin-top: 20%;" src="images/install5.png" width=100%>
+::::
+:::
+
+# sp_execute_external_script {.normal_slide}
+<div class="fragment" style="margin-top: 7%; margin-bottom: 10%;">
+- This is the main function for using an external language (R/Python)
+</div>
+<div class="fragment" style="margin-top: 15%;">
+- Main parameters are:
+  <div class="fragment sub_bullet">
+     - Language
+  </div>   
+  <div class="fragment sub_bullet">
+     - Script
+  </div>   
+  <div class="fragment sub_bullet">
+     - Input data
+  </div>   
+  <div class="fragment sub_bullet">
+     - Output data
+  </div>  
+  <div class="fragment sub_bullet">
+     - (Other parameters too)
+  </div>  
+</div>
+
+# !!!!DISCLAIMER!!!! {.normal_slide .center style='text-align: center;'}
+<div style="margin-top: 7%; text-align: center;">
+There will be code that creates predictive models here.  It is cheating.  DO NOT FOLLOW IT.  It does not cover choosing a model, testing/validation sets, and checking model assumptions. 
+</div>
+<div style="margin-top: 7%; text-align: center;">
+The SQL objects and functions are totally fine and can be used.
+</div>
+
+# Model: SQL Server / R Demo {.normal_slide .center}
+
+# Native Scoring {.normal_slide}
+<div class="fragment" style="margin-top: 7%; margin-bottom: 10%;">
+- This doesn’t use the overhead of R/Python by saving the models in ONNX or a predefined binary format.
+</div>
+<div class="fragment" style="margin-bottom: 10%;">
+- There is a list of possible models defined in specific functions. (rx…)
+  <div class="sub_bullet">
+     - RevoScaleR
+  </div>   
+  <div class="sub_bullet">
+     - revoscalepy
+  </div>   
+</div>
+<div class="fragment">
+- Uses the PREDICT function
+</div>
+
+# Native Scoring Demo {.normal_slide .center}
+
+# R Package {.normal_slide}
+<div class="fragment" style="margin-top: 7%; margin-bottom: 10%;">
+- Standard way of wrapping up R models
+</div>
+<div class="fragment" style="margin-bottom: 10%;">
+- Provides more separation between R and SQL
+  <div class="sub_bullet">
+     - Change packages to change models
+  </div>   
+  <div class="sub_bullet">
+     - Use ALTER statement to update package
+  </div>   
+</div>
+<div class="fragment">
+- Cleanest route for when a lot of R code needs to be ran
+</div>
+
+# R Package {.normal_slide}
+<div class="fragment" style="margin-top: 15%;">
+- There are some small details
+  <div class="sub_bullet">
+     - Sys.setenv(R_DEFAULT_SAVE_VERSION = 2) (if SQL < 3.5 but package isn’t)
+  </div>   
+  <div class="sub_bullet">
+     - Sys.setenv(R_DEFAULT_SERIALIZE_VERSION = 2) (if SQL < 3.5 but package isn’t)
+  </div>   
+  <div class="sub_bullet">
+     - devtools::build(binary = TRUE) (SQL Server wants zip)
+  </div>   
+</div>
+
+# R Package Demo {.normal_slide .center}
+
+# Speed Comparison Demo {.normal_slide .center}
+
+# Tips and Tricks {.section_slide .center}
+
+# Tips and Tricks {.normal_slide}
+<div class="fragment" style="margin-top: 7%; margin-bottom: 10%;">
+- Small catches will be the most painful part
+  <div class="fragment sub_bullet">
+     - R/Python are case sensitive.  So the input data names have to match
+  </div>   
+  <div class="fragment sub_bullet">
+     - Input/output formats are troublesome
+  </div>   
+  <div class="fragment sub_bullet">
+     - Error messaging can be cloudy at best
+  </div>   
+</div>
+<div class="fragment">
+- There is a whole world of versioning
+  <div class="fragment sub_bullet">
+     - Upgrading Machine Learning Services
+  </div>   
+  <div class="fragment sub_bullet">
+     - miniCran/R Open/checkpoint package
+  </div>   
+  <div class="fragment sub_bullet">
+     - Dependencies
+  </div>   
+</div>
+
+# Tips and Tricks {.normal_slide}
+<div class="fragment" style="margin-top: 7%; margin-bottom: 10%;">
+- Documentation/Blogs are hit-or-miss
+</div>
+<div class="fragment" style="margin-bottom: 10%;">
+- Azure Data Science VM (other sandboxes)
+</div>
+<div class="fragment">
+- Use all the standard SQL objects/tools
+  <div class="fragment sub_bullet">
+     - Wrap everything in a stored procedure
+  </div>   
+  <div class="fragment sub_bullet">
+     - Save/update models in a temporal table
+  </div>   
+  <div class="fragment sub_bullet">
+     - Separate database or bundled by project
+  </div>   
+</div>
+
+# Tips and Tricks {.normal_slide}
+<div class="fragment" style="margin-top: 7%; margin-bottom: 15%;">
+- Write documentation as you go.  Then delete and restart following the documentation
+</div>
+<div class="fragment">
+- Script everything
+  <div class="fragment sub_bullet">
+     - sqlmlutils package for R users
+  </div>   
+  <div class="fragment sub_bullet">
+     - Standard SQL for SQL users
+  </div> 
+</div>
+
+# Tips and Tricks {.normal_slide}
+<div class="fragment" style="margin-top: 7%;">
+- Restarting the Launchpad
+</div>
+<img class="fragment" src="images/launchpad.png" width=100%>
+
+# End {.section_slide .center}

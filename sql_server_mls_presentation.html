@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>sql_server_mls_presentation.knit</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="sql_server_mls_presentation_files/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+
+<link rel="stylesheet" href="sql_server_mls_presentation_files/reveal.js-3.3.0.1/css/theme/simple.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="custom.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+    <script src="sql_server_mls_presentation_files/header-attrs-2.8/header-attrs.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section id="sql-server-machine-learning-services" class="slide level1 title_slide center">
+<h1 class="title_slide center">SQL SERVER<br>MACHINE LEARNING<br>SERVICES</h1>
+<p>Tyler Bradley</p>
+</section>
+<section id="agenda" class="slide level1 normal_slide">
+<h1 class="normal_slide">Agenda</h1>
+<div style="margin-top: 7%; margin-bottom: 15%;">
+<ul>
+<li>Background</li>
+</ul>
+</div>
+<div style="margin-bottom: 15%;">
+<ul>
+<li>Demos</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>Tips and Tricks</li>
+</ul>
+</div>
+<aside class="notes">
+Demo is for showing ‘putting things into production’
+</aside>
+</section>
+<section id="background" class="slide level1 section_slide center">
+<h1 class="section_slide center">Background</h1>
+</section>
+<section id="what-is-this" class="slide level1 normal_slide">
+<h1 class="normal_slide">What is this?</h1>
+<div class="fragment" style="margin-top: 7%; margin-bottom: 15%;">
+<ul>
+<li>SQL Server feature to bring analytics into the database</li>
+</ul>
+</div>
+<div class="fragment" style="margin-bottom: 15%;">
+<ul>
+<li>R (2016) and Python (2017)</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Not a standalone server (there is another option for that)</li>
+</ul>
+</div>
+<aside class="notes">
+R and Python are analytics languages
+</aside>
+</section>
+<section id="use-cases" class="slide level1 normal_slide">
+<h1 class="normal_slide">Use cases</h1>
+<div class="fragment" style="margin-top: 7%; margin-bottom: 10%;">
+<ul>
+<li>Forecasting next month’s revenue</li>
+</ul>
+</div>
+<div class="fragment" style="margin-bottom: 10%;">
+<ul>
+<li>Customer churn</li>
+</ul>
+</div>
+<div class="fragment" style="margin-bottom: 10%;">
+<ul>
+<li>Finding potential fraud</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Basically, anything that is a best guess or probability</li>
+</ul>
+</div>
+</section>
+<section id="why-would-you-want-this" class="slide level1 normal_slide">
+<h1 class="normal_slide">Why would you want this?</h1>
+<div class="fragment" style="margin-top: 15%;">
+<ul>
+<li>Speed up predictive model processing
+<div class="fragment sub_bullet">
+<ul>
+<li>The analysis has been brought to the data instead of bringing the data to the analysis</li>
+</ul>
+</div>
+<div class="fragment sub_bullet">
+<ul>
+<li>Utilizes SQL for data prep and R/Python for analysis</li>
+</ul>
+</div>
+<div class="fragment sub_bullet">
+<ul>
+<li>Outputs directly into SQL Server</li>
+</ul>
+</div></li>
+</ul>
+</div>
+</section>
+<section id="why-would-you-want-this-1" class="slide level1 normal_slide">
+<h1 class="normal_slide">Why would you want this?</h1>
+<div class="fragment" style="margin-top: 15%;">
+<ul>
+<li>Clean up analytics projects in production
+<div class="fragment sub_bullet">
+<ul>
+<li>Use stored procedures, jobs, and other SQL objects</li>
+</ul>
+</div>
+<div class="fragment sub_bullet">
+<ul>
+<li>Less data pipeline work</li>
+</ul>
+</div>
+<div class="fragment sub_bullet">
+<ul>
+<li>Variety of setups but can be standardized across a team/organization</li>
+</ul>
+</div></li>
+</ul>
+</div>
+</section>
+<section id="why-would-you-want-this-2" class="slide level1 normal_slide">
+<h1 class="normal_slide">Why would you want this?</h1>
+<div class="fragment" style="margin-top: 15%;">
+<ul>
+<li>Ease collaboration between data scientists and DBAs
+<div class="fragment sub_bullet">
+<ul>
+<li>Utilized SQL permissions</li>
+</ul>
+</div>
+<div class="fragment sub_bullet">
+<ul>
+<li>Microsoft approved security</li>
+</ul>
+</div>
+<div class="fragment sub_bullet">
+<ul>
+<li>Options for resource controls</li>
+</ul>
+</div></li>
+</ul>
+</div>
+</section>
+<section id="why-would-you-not-want-this" class="slide level1 normal_slide">
+<h1 class="normal_slide">Why would you NOT want this?</h1>
+<div class="fragment" style="margin-top: 7%; margin-bottom: 15%;">
+<ul>
+<li>‘Real-time’ analysis is too slow</li>
+</ul>
+</div>
+<div class="fragment" style="margin-bottom: 15%;">
+<ul>
+<li>Big data operations are too small</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Power BI (and other software) interfaces</li>
+</ul>
+</div>
+</section>
+<section id="planning" class="slide level1 normal_slide">
+<h1 class="normal_slide">Planning</h1>
+<div class="fragment" style="margin-top: 7%; margin-bottom: 15%;">
+<ul>
+<li>Roles - DBA/Data Engineer to Data Scientist/Analyst</li>
+</ul>
+</div>
+<div class="fragment" style="margin-bottom: 15%;">
+<ul>
+<li>Use cases</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Number of People</li>
+</ul>
+</div>
+</section>
+<section id="demos" class="slide level1 section_slide center">
+<h1 class="section_slide center">Demos</h1>
+</section>
+<section id="install" class="slide level1 normal_slide">
+<h1 class="normal_slide">Install</h1>
+<div class="container">
+<div class="col">
+<p><img class="fragment" src="images/install1.PNG" width=100%></p>
+</div>
+<div class="col">
+<p><img class="fragment" src="images/install2.PNG" width=100%></p>
+</div>
+</div>
+</section>
+<section id="install-1" class="slide level1 normal_slide">
+<h1 class="normal_slide">Install</h1>
+<div class="container">
+<div class="col">
+<div style="position: relative">
+<p><img class="fragment img-inline" src="images/install3.png"> <img class="fragment img-inline" src="images/arrow.png" 
+      style="position: absolute; top: 40%; left: 20%;" 
+      width=10% height=10%></p>
+</div>
+</div>
+<div class="col">
+<div style="position: relative">
+<p><img class="fragment img-inline" src="images/install4.PNG"> <img class="fragment img-inline" src="images/arrow.png" 
+      style="position: absolute; top: 40%; left: 20%;" 
+      width=10% height=10%></p>
+</div>
+</div>
+</div>
+</section>
+<section id="install-2" class="slide level1 normal_slide">
+<h1 class="normal_slide">Install</h1>
+<div class="container">
+<div class="col">
+<div style="margin-top: 25%;">
+<p>A few more options and restarts later…</p>
+</div>
+</div>
+<div class="col">
+<p><img class="fragment" src="images/install5.PNG" width=100%></p>
+</div>
+</div>
+</section>
+<section id="sp_execute_external_script" class="slide level1 normal_slide">
+<h1 class="normal_slide">sp_execute_external_script</h1>
+<div class="fragment" style="margin-top: 7%; margin-bottom: 10%;">
+<ul>
+<li>This is the main function for using an external language (R/Python)</li>
+</ul>
+</div>
+<div class="fragment" style="margin-top: 15%;">
+<ul>
+<li>Main parameters are:
+<div class="fragment sub_bullet">
+<ul>
+<li>Language</li>
+</ul>
+</div>
+<div class="fragment sub_bullet">
+<ul>
+<li>Script</li>
+</ul>
+</div>
+<div class="fragment sub_bullet">
+<ul>
+<li>Input data</li>
+</ul>
+</div>
+<div class="fragment sub_bullet">
+<ul>
+<li>Output data</li>
+</ul>
+</div>
+<div class="fragment sub_bullet">
+<ul>
+<li>(Other parameters too)</li>
+</ul>
+</div></li>
+</ul>
+</div>
+</section>
+<section id="disclaimer" class="slide level1 normal_slide center" style="text-align: center;">
+<h1 class="normal_slide center" style="text-align: center;">!!!!DISCLAIMER!!!!</h1>
+<div style="margin-top: 7%; text-align: center;">
+<p>There will be code that creates predictive models here. It is cheating. DO NOT FOLLOW IT. It does not cover choosing a model, testing/validation sets, and checking model assumptions.</p>
+</div>
+<div style="margin-top: 7%; text-align: center;">
+<p>The SQL objects and functions are totally fine and can be used.</p>
+</div>
+</section>
+<section id="model-sql-server-r-demo" class="slide level1 normal_slide center">
+<h1 class="normal_slide center">Model: SQL Server / R Demo</h1>
+</section>
+<section id="native-scoring" class="slide level1 normal_slide">
+<h1 class="normal_slide">Native Scoring</h1>
+<div class="fragment" style="margin-top: 7%; margin-bottom: 10%;">
+<ul>
+<li>This doesn’t use the overhead of R/Python by saving the models in ONNX or a predefined binary format.</li>
+</ul>
+</div>
+<div class="fragment" style="margin-bottom: 10%;">
+<ul>
+<li>There is a list of possible models defined in specific functions. (rx…)
+<div class="sub_bullet">
+<ul>
+<li>RevoScaleR</li>
+</ul>
+</div>
+<div class="sub_bullet">
+<ul>
+<li>revoscalepy</li>
+</ul>
+</div></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Uses the PREDICT function</li>
+</ul>
+</div>
+</section>
+<section id="native-scoring-demo" class="slide level1 normal_slide center">
+<h1 class="normal_slide center">Native Scoring Demo</h1>
+</section>
+<section id="r-package" class="slide level1 normal_slide">
+<h1 class="normal_slide">R Package</h1>
+<div class="fragment" style="margin-top: 7%; margin-bottom: 10%;">
+<ul>
+<li>Standard way of wrapping up R models</li>
+</ul>
+</div>
+<div class="fragment" style="margin-bottom: 10%;">
+<ul>
+<li>Provides more separation between R and SQL
+<div class="sub_bullet">
+<ul>
+<li>Change packages to change models</li>
+</ul>
+</div>
+<div class="sub_bullet">
+<ul>
+<li>Use ALTER statement to update package</li>
+</ul>
+</div></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Cleanest route for when a lot of R code needs to be ran</li>
+</ul>
+</div>
+</section>
+<section id="r-package-1" class="slide level1 normal_slide">
+<h1 class="normal_slide">R Package</h1>
+<div class="fragment" style="margin-top: 15%;">
+<ul>
+<li>There are some small details
+<div class="sub_bullet">
+<ul>
+<li>Sys.setenv(R_DEFAULT_SAVE_VERSION = 2) (if SQL &lt; 3.5 but package isn’t)</li>
+</ul>
+</div>
+<div class="sub_bullet">
+<ul>
+<li>Sys.setenv(R_DEFAULT_SERIALIZE_VERSION = 2) (if SQL &lt; 3.5 but package isn’t)</li>
+</ul>
+</div>
+<div class="sub_bullet">
+<ul>
+<li>devtools::build(binary = TRUE) (SQL Server wants zip)</li>
+</ul>
+</div></li>
+</ul>
+</div>
+</section>
+<section id="r-package-demo" class="slide level1 normal_slide center">
+<h1 class="normal_slide center">R Package Demo</h1>
+</section>
+<section id="speed-comparison-demo" class="slide level1 normal_slide center">
+<h1 class="normal_slide center">Speed Comparison Demo</h1>
+</section>
+<section id="tips-and-tricks" class="slide level1 section_slide center">
+<h1 class="section_slide center">Tips and Tricks</h1>
+</section>
+<section id="tips-and-tricks-1" class="slide level1 normal_slide">
+<h1 class="normal_slide">Tips and Tricks</h1>
+<div class="fragment" style="margin-top: 7%; margin-bottom: 10%;">
+<ul>
+<li>Small catches will be the most painful part
+<div class="fragment sub_bullet">
+<ul>
+<li>R/Python are case sensitive. So the input data names have to match</li>
+</ul>
+</div>
+<div class="fragment sub_bullet">
+<ul>
+<li>Input/output formats are troublesome</li>
+</ul>
+</div>
+<div class="fragment sub_bullet">
+<ul>
+<li>Error messaging can be cloudy at best</li>
+</ul>
+</div></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>There is a whole world of versioning
+<div class="fragment sub_bullet">
+<ul>
+<li>Upgrading Machine Learning Services</li>
+</ul>
+</div>
+<div class="fragment sub_bullet">
+<ul>
+<li>miniCran/R Open/checkpoint package</li>
+</ul>
+</div>
+<div class="fragment sub_bullet">
+<ul>
+<li>Dependencies</li>
+</ul>
+</div></li>
+</ul>
+</div>
+</section>
+<section id="tips-and-tricks-2" class="slide level1 normal_slide">
+<h1 class="normal_slide">Tips and Tricks</h1>
+<div class="fragment" style="margin-top: 7%; margin-bottom: 10%;">
+<ul>
+<li>Documentation/Blogs are hit-or-miss</li>
+</ul>
+</div>
+<div class="fragment" style="margin-bottom: 10%;">
+<ul>
+<li>Azure Data Science VM (other sandboxes)</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Use all the standard SQL objects/tools
+<div class="fragment sub_bullet">
+<ul>
+<li>Wrap everything in a stored procedure</li>
+</ul>
+</div>
+<div class="fragment sub_bullet">
+<ul>
+<li>Save/update models in a temporal table</li>
+</ul>
+</div>
+<div class="fragment sub_bullet">
+<ul>
+<li>Separate database or bundled by project</li>
+</ul>
+</div></li>
+</ul>
+</div>
+</section>
+<section id="tips-and-tricks-3" class="slide level1 normal_slide">
+<h1 class="normal_slide">Tips and Tricks</h1>
+<div class="fragment" style="margin-top: 7%; margin-bottom: 15%;">
+<ul>
+<li>Write documentation as you go. Then delete and restart following the documentation</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Script everything
+<div class="fragment sub_bullet">
+<ul>
+<li>sqlmlutils package for R users</li>
+</ul>
+</div>
+<div class="fragment sub_bullet">
+<ul>
+<li>Standard SQL for SQL users</li>
+</ul>
+</div></li>
+</ul>
+</div>
+</section>
+<section id="tips-and-tricks-4" class="slide level1 normal_slide">
+<h1 class="normal_slide">Tips and Tricks</h1>
+<div class="fragment" style="margin-top: 7%;">
+<ul>
+<li>Restarting the Launchpad</li>
+</ul>
+</div>
+<p><img class="fragment" src="images/launchpad.PNG" width=100%></p>
+</section>
+<section id="end" class="slide level1 section_slide center">
+<h1 class="section_slide center">End</h1>
+</section>
+    </div>
+  </div>
+
+  <script src="sql_server_mls_presentation_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="sql_server_mls_presentation_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: false,
+        // Display a presentation progress bar
+        progress: false,
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: false,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'slide', // none/fade/slide/convex/concave/zoom
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'sql_server_mls_presentation_files/reveal.js-3.3.0.1/plugin/notes/notes.js', async: true },
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>
