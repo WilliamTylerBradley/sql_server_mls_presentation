@@ -5,5 +5,3 @@
 library(stringr)
 file.rename(file.path("output", list.files(path="output/", pattern="slide_*")),
             file.path("output", sub("_960x700", "", list.files(path="output/", pattern="slide_*"))))
-
-
