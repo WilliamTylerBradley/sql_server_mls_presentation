@@ -23,7 +23,7 @@ knitr::opts_chunk$set(echo = FALSE)
 Tyler Bradley
 
 <aside class="notes">
-I originally gave this presentation in November 2020 for the Asheville SQL Meetup. It covers the basics of SQL Server's Machine Learning Services. Hopefully, it provides enough information to help people decide if this tech is a good solution for them.
+I initially gave this presentation in November 2020 for the Asheville SQL Meetup. It covers the basics of SQL Server's Machine Learning Services. Hopefully, it provides enough information to help people decide if this tech is a good solution for them.
 </aside>
 
 # Agenda {.normal_slide}
@@ -38,7 +38,7 @@ I originally gave this presentation in November 2020 for the Asheville SQL Meetu
 </div>
 
 <aside class="notes">
-This presentation covers some background on Machine Learning Services, like what it is and why you would want to use it. There's a demo section that showcases three different ways to use R in production with SQL Server. Finally, there's a section for some tips and tricks that helped me when I setup and use this tech.
+This presentation covers some background on Machine Learning Services, like what it is and why you would want to use it. There's a demo section that showcases three different ways to use R in production with SQL Server. Finally, there's a section for some tips and tricks that helped me when I set up and use this tech.
 </aside>
 
 # Background {.section_slide .center}
@@ -55,15 +55,11 @@ The first section is just on the background.
 - R (2016) and Python (2017)
 </div>
 <div class="fragment">
-- Not a stand alone server (there is another option for that)
+- Not a standalone server (there is another option for that)
 </div>
 
 <aside class="notes">
-What is this? Machine Learning Services is a SQL Server feature that allows you to bring analytics into the database by running the analytics programming language in-database.
-
-It first started out in 2016 with R and later added Python support. Some old documentation will call it R services because that's what it was called prior to Python.
-
-This is not a stand alone server. It's normal SQL Server with added features. There is another option for a stand alone server. That might be a better choice for your needs, but we'll not cover that in this presentation.
+Machine Learning Services is a SQL Server feature that allows you to bring analytics into the database by running the analytics programming language in-database. It first started in 2016 with R and later added Python support. Some old documentation will call it R services because that was the name before adding Python. This is not a standalone server. It's a regular SQL Server with added features. There is another option for a standalone server. That might be a better choice for your needs, but we'll not cover that in this presentation.
 </aside>
 
 # Use cases {.normal_slide}
@@ -81,15 +77,7 @@ This is not a stand alone server. It's normal SQL Server with added features. Th
 </div>
 
 <aside class="notes">
-If you're wondering if this would be a good addition to your tech stack, here are some good use cases. 
-
-Forecasting next month's revenue. 
-
-Customer churn to predict when types of customers are mostly like to leave. 
-
-Finding potential fraud in claims data. 
-
-Basically, anything that is a best guess or probability. It's not for pulling data or summaries. You can do that, but it won't be better than using SQL normally. You can do some predictive modeling with just SQL, but normally using R or Python has more features and is easier to use. Also for this presentation when I say 'model', I'm talking about a predictive or statistical model, not a data model that's commonly used in SQL settings.
+If you're wondering if this would be a good addition to your tech stack, here are some excellent use cases: forecasting next month's revenue, customer churn to predict when types of customers are mostly like to leave, and finding potential fraud in claims data. Basically, anything that is a best guess or probability. It's not for pulling data or summaries. You can do that, but it won't be better than using SQL typically. You can do some predictive modeling with just SQL, but usually, using R or Python has more features and is easier to use. Also, for this presentation, when I say 'model', I'm talking about a predictive or statistical model, not a data model that's commonly used in SQL settings.
 </aside>
 
 # Why would you want this? {.normal_slide}
@@ -107,13 +95,7 @@ Basically, anything that is a best guess or probability. It's not for pulling da
 </div>
 
 <aside class="notes">
-Speeding up predictive model processing is the main reason to add this tech. 
-
-By bringing the analysis to the data, you don't have to move large data sets out of SQL Server to get the results you need. This can cut out a huge amount of time and processing power.
-
-You get to utilize SQL for the data prep and R or Python for the analysis. This gets you the best of both worlds. SQL tends to be a lot more stable and optimized for data prep while R and Python can handle the large machine learning models that would too difficult to code in SQL.
-
-Also, Machine Learning Services outputs within SQL Server, which can be easily used for reporting or an ETL. 
+Speeding up predictive model processing is the main reason to add this tech. By bringing the analysis to the data, you don't have to move large data sets out of SQL Server to get the results you need. This can cut out a huge amount of time and processing power. You get to utilize SQL for the data prep and R or Python for the analysis. This brings you the best of both worlds. SQL tends to be a lot more stable and optimized for data prep, while R and Python can handle the large machine learning models that would too difficult to code in SQL. Also, Machine Learning Services outputs within SQL Server, which is easily used for reporting or an ETL. 
 </aside>
 
 # Why would you want this? {.normal_slide}
@@ -131,13 +113,11 @@ Also, Machine Learning Services outputs within SQL Server, which can be easily u
 </div>
 
 <aside class="notes">
-This setup also allows you to have clean analytics projects in production. There's no need for large wonky code sets to get everything glued together.
+This setup also allows you to have clean analytics projects in production. There's no need for large wonky code sets to get everything glued together. You can use all the standard SQL objects, like stored procedures and jobs. So, you don't need another tool for scheduling or error reporting. There is less pipeline work since you're not moving data in and out of SQL Server. So there are fewer ETLs, permissions issues, and other places for things to break. 
 
-You can use all the normal SQL objects, like stored procedures and jobs. So, you don't need another tool for scheduling or error reporting.
+I think the addition of 'fewer things to break' for this work is an important selling point. If you're adding in tech, then you're also adding in more options for failure. That's made up for to get the predictive modeling capabilities but reducing all the other code helps put this option ahead of other predictive modeling tools.
 
-There is less pipeline work since you're not moving data in and out of SQL Server. So there are less ETLs, permissions issues, places for things to break. I think the additional of 'less things to break' for this work is an important selling point. If you're adding in tech, then you're also adding in more options for failure. That's made up for in order to get the predictive modeling capabilities but reducing all the other code helps put this option ahead of other predictive modeling tools.
-
-There are a variety of setups but you can pick a specific one for your team or organization. The flexibility is nice so this tool works for most companies. Then when you get a setup for your team, you can set standards so everything follows a pattern for documentation and code.
+There are a variety of setups, but you can pick a specific one for your team or organization. The flexibility is nice, so this tool works for most companies. Then when you get a setup for your team, you can set standards, so everything follows a pattern for documentation and code.
 </aside>
 
 # Why would you want this? {.normal_slide}
@@ -155,13 +135,7 @@ There are a variety of setups but you can pick a specific one for your team or o
 </div>
 
 <aside class="notes">
-This tech is a great setup because it can ease collaboration between data scientist and DBAs. 
-
-It utilizes SQL permissions. So no one needs to learn a new setup for that and it can fit nicely into your current setup. 
-
-It has Microsoft approved security. You're bringing in unvalidated software on your server.
-
-And it has options for resource controls. If you're worried about data science work taking over everything, you can put up gates to prevent that. As a side note, I've never needed to use this feature. Most resource intensive data science work happens when during development, not running them in production, and I build the models in a different environment. 
+This tech is a great setup because it can ease collaboration between data scientists and DBAs. It utilizes SQL permissions. So no one needs to learn a new setup for that, and it can fit nicely into your current structure. It has Microsoft-approved security. You're not bringing in unvalidated software on your server. And it has options for resource controls. If you're worried about data science work taking over everything, you can put up gates to prevent that. As a side note, I've never needed to use this feature. Most resource-intensive data science work happens during development, not running them in production, and I build the models in a different environment. 
 </aside>
 
 # Why would you NOT want this? {.normal_slide}
@@ -176,13 +150,11 @@ And it has options for resource controls. If you're worried about data science w
 </div>
 
 <aside class="notes">
-Why would you not want to use this?
+The real-time analysis can be too slow. We'll compare different options during the demo section, so you'll see the fast ones. If you can wait a few seconds to return results or run everything in a batch the night before you need them, you're good to go. If machine learning services are too slow, then SQL Server is probably too slow.
 
-The real time analysis can be too slow. We'll compare different options during the demo section so you'll see the fast ones. If you can wait a few seconds to return results or run everything in a batch the night before you need them, you're good to go. If machine learning services are too slow, then SQL Server is probably too slow.
+The big data operations can be too small. This is more of a limitation of SQL Server again. Depending on your data size, this might not be big enough, but then SQL Server is probably not the right tool anyways.
 
-This is more of a limitation of SQL Server again. Depending on your data size, this might not be big enough. But then SQL Server is probably not the right tool anyways.
-
-This also doesn't work as nice with Power BI and other interfaces as you might expect, especially for interactivity. If you can't run a stored procedure or run all the options prior to pulling out the data, you'll have a lot of limitations here.
+This doesn't work as well with Power BI and other interfaces as you might expect, especially for interactivity. If you can't run a stored procedure or run all the options before pulling out the data, you'll have a lot of limitations here.
 </aside>
 
 # Planning {.normal_slide}
@@ -197,15 +169,7 @@ This also doesn't work as nice with Power BI and other interfaces as you might e
 </div>
 
 <aside class="notes">
-When you're planning out setting this up, there are a few things to figure out.
-
-You should have some idea of the roles you want involved. Machine learning services gives teams a whole spectrum of responsibilities that can be used to set expectations and tasks between DBAs and data scientist. So, you can have a setup with a ton of DBA involvement or very little work depending on what you want at your company. 
-
-You'll want to know about the use cases you'll have. In the demo section, we'll walk through a few options. Determining which setup is best for your team is pretty much determined by your use cases.
-
-The number of people involved can also play a factor. You can easily interfere with other people's work if you're not careful so some setups are better with larger teams.
-
-Overall, there is a lot of flexibility but no strong consensus on how to use this tech.
+When you're planning out setting this up, there are a few things to figure out. You should have some idea of the roles you want involved. Machine learning services gives teams a whole spectrum of responsibilities that can be used to set expectations and tasks between DBAs and data scientist. So, you can have a setup with a ton of DBA involvement or very little work, depending on what you want at your company. You'll want to know about the use cases you'll have. In the demo section, we'll walk through a few options. Determining which setup is best for your team is pretty much determined by your use cases. The number of people involved can also play a factor. You can easily interfere with other people's work if you're not careful, so some setups are better with larger teams. Overall, there is a lot of flexibility but no strong consensus on how to use this tech.
 </aside>
 
 # Demos {.section_slide .center}
@@ -294,9 +258,7 @@ You'll go through a few more options and restarts. You can test that it's workin
 </div>
 
 <aside class="notes">
-The main function you'll use is sp_execute_external_script. It's the way to access an external lanuage.
-
-There are a bunch of parameters. The specific language (R or Python). The actual script to run. The input data set. The output data that gets returned. And a lot of other options too.
+The primary function you'll use is sp_execute_external_script. It's the way to access an external language. There are a bunch of parameters. The specific language (R or Python). The actual script to run. The input data set. The output data that gets returned. And a lot of other options too.
 </aside>
 
 # !!!!DISCLAIMER!!!! {.normal_slide .center style='text-align: center;'}
@@ -308,9 +270,7 @@ The SQL objects and functions are totally fine and can be used.
 </div>
 
 <aside class="notes">
-For a big disclaimer. I'll run some code that creates predictive models, but I'm taking a lot of shortcuts. I'm not working through choosing a model, testing, and checking. I'm just getting a small model setup for the demo.
-
-The SQL objects and functions are fine to use. That's the main focus of this presentation and can be adapted very easilier for your company.
+For a big disclaimer. I'll run some code that creates predictive models, but I'm taking a lot of shortcuts. I'm not working through choosing a model, testing, and checking. I'm just getting a small model setup for the demo. The SQL objects and functions are fine to use. That's the main focus of this presentation and can be adapted very easily for your company.
 </aside>
 
 # Model: SQL Server / R Demo {.normal_slide .center}
@@ -318,7 +278,7 @@ The SQL objects and functions are fine to use. That's the main focus of this pre
 <aside class="notes">
 -- run 1_set_up_checks.sql
 
-This shows the everything looks good.
+This shows that everything looks good.
 
 -- run 2_create_mtcars.sql
 
@@ -326,7 +286,7 @@ This builds out a test data set for us to use.
 
 -- run 3_mtcars_sql.sql
 
-This builds a model, saves it to a new table, and scores data with the new model. You can add in more models to this table or update the existing one.
+This builds a model, saves it to a new table, and scores data with the new model. You can add more models to this table or update the existing ones.
 
 This is the most basic setup. Everything's pretty much kept in SQL Server with basic functionalities.
 </aside>
@@ -349,11 +309,7 @@ This is the most basic setup. Everything's pretty much kept in SQL Server with b
 </div>
 
 <aside class="notes">
-There is an option for Native Scoring. This doesn't use the overhead of R and Python but uses another format.
-
-The trade off is there is a smaller list of possible models, but these are the most common. You'll use RevoScaleR or revoscalepy depending on if you're using R or Python.
-
-The main function here is PREDICT. So look for that in the code.
+There is an option for Native Scoring. This doesn't use the overhead of R and Python but uses another format. The trade-off is there is a smaller list of possible models, but these are the most common. You'll use RevoScaleR or revoscalepy, depending on if you're using R or Python. The main function here is PREDICT. So look for that in the code.
 
 (Open Neural Network Exchange (ONNX))
 </aside>
@@ -384,13 +340,7 @@ This builds the model, adds it to the table, and scores some data. You can see i
 </div>
 
 <aside class="notes">
-The last way to run a model in production I'll talk about it use a R package. 
-
-R packages are a pretty common mechanism to wrap up a lot of R code. You'll see them for almost everything.
-
-This provides the most separation between R and SQL by wrapping up most fo the R code in the package then using SQL to pass data to it. You can make changes to the package to change the model instead of changing any SQL code. You'll just need to use an ALTER statement to update it.
-
-This is probably the cleanest route for when a lot of R code needs to be ran.
+The last way to run a model in production I'll talk about is using an R package. R packages are a pretty common mechanism to wrap up a lot of R code. You'll see them for almost everything. This provides the most separation between R and SQL by wrapping up most of the R code in the package then using SQL to pass data to it. You can make changes to the package to change the model instead of changing any SQL code. You'll just need to use an ALTER statement to update it. This is probably the cleanest route for when a lot of R code needs to run.
 </aside>
 
 # R Package {.normal_slide}
@@ -418,7 +368,7 @@ When you're creating a model to use in a package, there might be some versioning
 
 --(Make sure to have the package pulled from GitHub and saved in as a zipfile.)
 
-This code uploads a R package that contains a pre-built model. It then uses machine learning services to score data with that package.
+This code uploads an R package that contains a pre-built model. It then uses machine learning services to score data with that package.
 </aside>
 
 # Speed Comparison Demo {.normal_slide .center}
@@ -426,7 +376,7 @@ This code uploads a R package that contains a pre-built model. It then uses mach
 <aside class="notes">
 -- run 6_mt_cars_big.sql
 
-This codes builts out a bigger data set to see run time comparisons. It's good for a lot of batch analytics and the native scoring is the best.
+This code builds out a bigger data set to see run time comparisons. It's good for a lot of batch analytics, and the native scoring is the best.
 </aside>
 
 # Tips and Tricks {.section_slide .center}
@@ -462,21 +412,9 @@ Now for the tips and tricks section.
 </div>
 
 <aside class="notes">
-Small catches and errors will definitely be the most painful part. You'll hit a lot of little mistakes the first time you try to get something working. Here are a few to watch out for.
+Small catches and errors will definitely be the most painful part. You'll hit a lot of minor mistakes the first time you try to get something working. Here are a few to watch out for in your work. R and Python are case-sensitive.  So the input data names have to match exactly, unlike SQL. Input/output formats can trouble. This includes the number of columns, names, and data types. R, Python, and SQL Server have slightly different data types. So, you might hit a weird issue, especially with conversions. Error messaging can be cloudy at best. You'll get a lot of weird messages that are either a downstream effect of the real problem or are just some esoteric response. You can get this if there's something wrong in the R code, but you'll get the final issue as a SQL problem.
 
-R/Python are case sensitive.  So the input data names have to match exactly, unlike SQL.
-
-Input/output formats can trouble. This includes number of columns, names, and data types. R, Python, and SQL Server have slightly different data types. So, you might hit a weird issue, especially with conversions.
-
-Error messaging can be cloudy at best. You'll get a lot weird messages that are either a downstream effect of the real problem or are just some esoteric response. You can get this if there's something wrong in the R code but you'll get the final issue as a SQL problem.
-
-There is also a whole world of versioning that we won't get to in this presentation.
-
-You'll need to look into upgrading versions of Machine Learning Services.
-
-Probably choose something using miniCran, R Open, and/or the checkpoint package.
-
-Finally, you'll need to figure out any dependencies for the packages of predictive models you might have. The tech on the prior bullet point can really help you out here.
+There is also a whole world of versioning that we won't get to in this presentation. You'll need to look into upgrading versions of Machine Learning Services. Probably choose something using miniCran, R Open, and the checkpoint package. Finally, you'll need to figure out any dependencies for the packages of predictive models you might have. The tech on the last bullet point can help you out here.
 </aside>
 
 # Tips and Tricks {.normal_slide}
@@ -502,7 +440,7 @@ Finally, you'll need to figure out any dependencies for the packages of predicti
 <aside class="notes">
 A lot of documentation and blog posts are hit or miss because they deal with outdated practices or features that don't work with your setup. If you search around enough, you will find some help eventually though.
 
-You can use all the standard SQL objects/tools. Everything can be wrapped up in a stored procedure, which can be very nice. You can save and update models in a temporal table if you want to compare model performance over time. And you can use a separate for all models or a different database for each project to keep data pulls, reference tables, and outputs all together.
+You can use all the standard SQL objects/tools. Everything can be wrapped up in a stored procedure, which can be very nice. You can save and update models in a temporal table to compare model performance over time. And you can use a separate for all models or a different database for each project to keep data pulls, reference tables, and outputs altogether.
 </aside>
 
 # Tips and Tricks {.normal_slide}
@@ -520,13 +458,9 @@ You can use all the standard SQL objects/tools. Everything can be wrapped up in 
 </div>
 
 <aside class="notes">
-Make sure to write documentation as you go. Then at the end, delete the setup and restart following the documentation. You'll probably want to delete and restart several times. There will be little catches you'll need to remember later and having them written down will save you.
+Make sure to write documentation as you go. Then at the end, delete the setup and restart following the documentation. You'll probably want to delete and restart several times. There will be little catches you'll need to remember later, and having them written down will save you.
 
-I like to script everything. I find it easier for reproducibility and to pass off stuff to coworkers. 
-
-If you mainly have a R shop, the sql m l utils package will be helpful.
-
-If you're mainly SQL, you can use standard SQL code for everything. At my job everything gets passed off to another developer for putting models on our production server. I've got scripts that pick up the R packages, place them in the right spot, and tests everything.
+I like to script everything. I find it easier for reproducibility and to pass off stuff to coworkers. If you mainly have an R shop, the sqlmlutils package will be helpful. If you're mainly SQL, you can use standard SQL code for everything. At my job, everything gets passed off to another developer for putting models on our production server. I've got scripts that pick up the R packages, place them in the right spot, and test everything.
 </aside>
 
 # Tips and Tricks {.normal_slide}
